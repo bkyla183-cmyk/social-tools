@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة أدوات السوشيال ميديا وصناع المحتوى الاحترافية</title>
+    <meta name="description" content="موقع خدمي متكامل لصناع المحتوى والمسوقين: احسب معدل التفاعل، قدر أرباح المشاهدات، نسق النصوص، واحسب الكلمات والحروف مجاناً وبأعلى دقة.">
+    <meta name="keywords" content="حاسبة معدل التفاعل, أرباح يوتيوب وتيك توك, عداد الكلمات, زخرفة النصوص, أدوات صناع المحتوى">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --accent: #10b981;
+            --border: #334155;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-bottom: 1px solid var(--border);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+        header p {
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background-color: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        button {
+            width: 100%;
+            background-color: var(--primary);
+            color: #0f172a;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 5px 0;
+        }
+        .result-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .stat-item {
+            background-color: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+        .output-text {
+            background-color: #0f172a;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 10px;
+            word-break: break-all;
+            font-family: monospace;
+            color: var(--primary);
+            min-height: 25px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            margin-bottom: 15px;
+        }
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        /* نافذة منبثقة بسيطة للصفحات القانونية */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            text-align: right;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>منصة أدوات السوشيال ميديا الاحترافية</h1>
+    <p>أدوات ذكية ومجانية مخصصة لصناع المحتوى، الكتّاب، والمسوقين الرقميين</p>
+</header>
+
+<div class="container">
+
+    <!-- الأداة الأولى: حاسبة معدل التفاعل -->
+    <div class="card">
+        <div>
+            <h3>حاسبة معدل التفاعل (Engagement Rate)</h3>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>عدد المتابعين الإجمالي:</label>
+                <input type="number" id="followers" placeholder="مثال: 10000">
+            </div>
+            <div class="form-group">
+                <label>إجمالي الإعجابات (Likes):</label>
+                <input type="number" id="likes" placeholder="مثال: 500">
+            </div>
+            <div class="form-group">
+                <label>إجمالي التعليقات (Comments):</label>
+                <input type="number" id="comments" placeholder="مثال: 50">
+            </div>
+        </div>
+        <div>
+            <button onclick="calculateEngagement()">احسب معدل التفاعل</button>
+            <div class="result-box" id="resultBox1">
+                <div class="result-value" id="resultValue1">0%</div>
+                <div class="result-desc" id="resultDesc1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الأداة الثانية: تقدير أرباح المشاهدات -->
+    <div class="card">
+        <div>
+            <h3>حاسبة تقدير أرباح الفيديو (Earnings Estimator)</h3>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>عدد المشاهدات الشهرية:</label>
+                <input type="number" id="views" placeholder="مثال: 50000">
+            </div>
+            <div class="form-group">
+                <label>نوع المحتوى (متوسط RPM المتوقع):</label>
+                <select id="rpmType">
+                    <option value="2">عام / ترفيهي (منخفض)</option>
+                    <option value="5" selected>تقني / تعليمي (متوسط)</option>
+                    <option value="15">مالي / عقاري / تجاري (مرتفع)</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <button onclick="calculateEarnings()">احسب الأرباح التقديرية</button>
+            <div class="result-box" id="resultBox2">
+                <div class="result-value" id="resultValue2">$0</div>
+                <div class="result-desc">العائد التقديري بناءً على المشاهدات</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الأداة الثالثة: منسق وزخرفة النصوص -->
+    <div class="card full-width">
+        <div>
+            <h3>منسق وزخرفة نصوص السوشيال ميديا (Bio Formatter)</h3>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>اكتب النص المراد تنسيقه أو زخرفته:</label>
+                <textarea id="rawText" rows="3" placeholder="اكتب نبذتك هنا..." oninput="formatText()"></textarea>
+            </div>
+            <label>النص المزخرف والجاهز للنسخ:</label>
+            <div class="output-text" id="formattedOutput">اكتب نصاً بالأعلى ليظهر هنا...</div>
+        </div>
+        <button onclick="copyText()" style="margin-top: 15px; background-color: var(--accent); color: #fff;">نسخ النص المزخرف</button>
+    </div>
+
+    <!-- الأداة الرابعة: عداد الكلمات والحروف المتقدم -->
+    <div class="card full-width">
+        <div>
+            <h3>عداد الكلمات والحروف (Word & Character Counter)</h3>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>الصق النص أو المقال هنا لحساب تفاصيله:</label>
+                <textarea id="wordText" rows="4" placeholder="اكتب أو الصق النص هنا..." oninput="countWords()"></textarea>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="wordCount">0</div>
+                    <div class="stat-label">الكلمات</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="charCount">0</div>
+                    <div class="stat-label">الحروف (مع المسافات)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="readTime">0 دقيقة</div>
+                    <div class="stat-label">وقت القراءة المقدر</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- الفوتر مع روابط "من نحن" و "سياسة الخصوصية" -->
+<footer>
+    <div class="footer-links">
+        <a href="javascript:void(0)" onclick="openModal('aboutModal')">من نحن</a>
+        <a href="javascript:void(0)" onclick="openModal('privacyModal')">سياسة الخصوصية</a>
+    </div>
+    <p>جميع الحقوق محفوظة © 2026 - منصة أدوات السوشيال ميديا. مصممة لخدمة صناع المحتوى.</p>
+</footer>
+
+<!-- نافذة "من نحن" -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+        <h3 style="color: var(--primary);">من نحن</h3>
+        <p>نحن منصة رقمية متكاملة تهدف إلى توفير أدوات حسابية وخدمية مجانية وسريعة لصناع المحتوى، المسوقين، والكتّاب عبر الإنترنت. نسعى لتسهيل مهامهم اليومية وتقديم تجربة مستخدم سلسة وعالية الجودة.</p>
+    </div>
+</div>
+
+<!-- نافذة "سياسة الخصوصية" -->
+<div id="privacyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+        <h3 style="color: var(--primary);">سياسة الخصوصية</h3>
+        <p>نحن في منصة أدوات السوشيال ميديا نولي اهتماماً بالغاً لخصوصية زوارنا:</p>
+        <p><strong>ملفات تعريف الارتباط (Cookies):</strong> قد تستخدم شبكات الإعلانات التابعة لجهات خارجية (مثل Google AdSense) ملفات تعريف الارتباط لعرض إعلانات بناءً على زيارات المستخدم السابقة لموقعنا.</p>
+        <p><strong>جمع البيانات:</strong> لا نحتفظ بأي بيانات شخصية تدخلها في الأدوات (مثل النصوص أو الأرقام)، حيث تتم عملية الحساب بالكامل بشكل آمن داخل متصفحك الخاص.</p>
+    </div>
+</div>
+
+<script>
+    // الدوال البرمجية للأدوات السابقة
+    function calculateEngagement() {
+        const followers = parseFloat(document.getElementById('followers').value);
+        const likes = parseFloat(document.getElementById('likes').value);
+        const comments = parseFloat(document.getElementById('comments').value);
+        const box = document.getElementById('resultBox1');
+        const val = document.getElementById('resultValue1');
+        const desc = document.getElementById('resultDesc1');
+
+        if (!followers || followers <= 0 || isNaN(likes) || isNaN(comments)) {
+            alert('الرجاء إدخال بيانات صحيحة.');
+            return;
+        }
+
+        const rate = ((likes + comments) / followers) * 100;
+        val.innerText = rate.toFixed(2) + '%';
+        
+        let text = 'معدل مقبول';
+        if (rate < 1) text = 'تفاعل ضعيف، يحتاج لتحسين المحتوى.';
+        else if (rate >= 1 && rate <= 3) text = 'تفاعل جيد وطبيعي.';
+        else if (rate > 3) text = 'تفاعل ممتاز ورائع جداً!';
+        
+        desc.innerText = text;
+        box.style.display = 'block';
+    }
+
+    function calculateEarnings() {
+        const views = parseFloat(document.getElementById('views').value);
+        const rpm = parseFloat(document.getElementById('rpmType').value);
+        const box = document.getElementById('resultBox2');
+        const val = document.getElementById('resultValue2');
+
+        if (!views || views <= 0) {
+            alert('الرجاء إدخال عدد مشاهدات صحيح.');
+            return;
+        }
+
+        const earnings = (views / 1000) * rpm;
+        val.innerText = '$' + earnings.toLocaleString('en-US', {maximumFractionDigits: 2});
+        box.style.display = 'block';
+    }
+
+    function formatText() {
+        const text = document.getElementById('rawText').value;
+        if (!text) {
+            document.getElementById('formattedOutput').innerText = 'اكتب نصاً بالأعلى ليظهر هنا...';
+            return;
+        }
+        document.getElementById('formattedOutput').innerText = `✨ ${text} ✨`;
+    }
+
+    function copyText() {
+        const textToCopy = document.getElementById('formattedOutput').innerText;
+        navigator.clipboard.writeText(textToCopy);
+        alert('تم نسخ النص بنجاح!');
+    }
+
+    function countWords() {
+        const text = document.getElementById('wordText').value.trim();
+        const charCount = text.length;
+        const words = text === '' ? 0 : text.split(/\s+/).length;
+        const readTimeMinutes = Math.ceil(words / 200);
+
+        document.getElementById('wordCount').innerText = words;
+        document.getElementById('charCount').innerText = charCount;
+        document.getElementById('readTime').innerText = readTimeMinutes + ' دقيقة';
+    }
+
+    // دوال تحكم النوافذ المنبثقة (Modal)
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // إغلاق النوافذ عند النقر خارجها
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
