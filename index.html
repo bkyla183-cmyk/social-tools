@@ -17,7 +17,35 @@
             --accent: #10b981;
             --border: #334155;
         
-        body {
+        body {<!-- الأداة الثانية: مولد الوسوم -->
+    <div class="tool-box" style="margin-top: 30px;">
+        <h2>مولد وسوم (Tags) السوشيال ميديا</h2>
+        <p>اكتب مجال الفيديو لنولّد لك كلمات مفتاحية قوية للنسخ الفوري:</p>
+        <input type="text" id="tagInput" placeholder="مثال: طبخ، تقنية، رياضة...">
+        <button onclick="generateTags()" style="background-color: #27ae60;">توليد الوسوم</button>
+        <div id="tagResultBox" class="result">
+            <strong>الوسوم المقترحة (اضغط للنسخ):</strong>
+            <textarea id="tagsOutput" readonly style="width: 100%; height: 80px; margin-top: 10px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff;"></textarea>
+        </div>
+    </div>
+
+    <script>
+        function generateTags() {
+            const keyword = document.getElementById('tagInput').value.trim();
+            const tagResultBox = document.getElementById('tagResultBox');
+            const tagsOutput = document.getElementById('tagsOutput');
+            
+            if (keyword === "") {
+                alert("الرجاء إدخال المجال أولاً!");
+                return;
+            }
+
+            const tags = `${keyword}, أسرار ${keyword}, تعلم ${keyword}, ${keyword} 2026, طريقة ${keyword}, احتراف ${keyword}, نصائح ${keyword}, أفضل استراتيجية لـ ${keyword}`;
+            
+            tagsOutput.value = tags;
+            tagResultBox.style.display = "block";
+        }
+    </script>
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
